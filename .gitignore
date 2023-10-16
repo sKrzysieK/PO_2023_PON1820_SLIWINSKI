@@ -57,6 +57,7 @@ out/
 gradle/
 gradlew
 gradlew.bat
+build/
 
 
 # mpeltonen/sbt-idea plugin
