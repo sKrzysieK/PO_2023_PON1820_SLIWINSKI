@@ -34,10 +34,9 @@ public class World {
                 case BACKWARD -> "do tyłu";
                 case LEFT -> "w lewo";
                 case RIGHT -> "w prawo";
-                default -> "";
             };
 
-            if(direction_text != "") System.out.println("Zwierzak idzie " + direction_text);
+            System.out.println("Zwierzak idzie " + direction_text);
 
         }
     }
