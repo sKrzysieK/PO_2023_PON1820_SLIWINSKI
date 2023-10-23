@@ -35,6 +35,11 @@ public class World {
         System.out.println(animal1.isAt(new Vector2d(2, -2)));
         System.out.println(animal1.isAt(new Vector2d(2,2)));
 
+        List<MoveDirection> directions = OptionsParser.parse(args);
+        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
+        Simulation simulation = new Simulation(directions, positions);
+        simulation.run();
+
     }
     public static void run(List<MoveDirection> directions){
         for(MoveDirection direction: directions){
