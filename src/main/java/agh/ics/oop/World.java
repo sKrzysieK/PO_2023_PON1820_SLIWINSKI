@@ -5,6 +5,8 @@ import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 
+import java.util.List;
+
 public class World {
     public static void main(String args[]){
         System.out.println("Start");
@@ -34,7 +36,7 @@ public class World {
         System.out.println(animal1.isAt(new Vector2d(2,2)));
 
     }
-    public static void run(MoveDirection directions[]){
+    public static void run(List<MoveDirection> directions){
         for(MoveDirection direction: directions){
             String direction_text = switch(direction){
                 case FORWARD -> "do przodu";
