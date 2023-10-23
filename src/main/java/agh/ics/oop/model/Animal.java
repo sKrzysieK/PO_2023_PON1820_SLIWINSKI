@@ -29,5 +29,34 @@ public class Animal {
                 this.orientation.toString();
     }
 
+    public void move(MoveDirection direction){
+        // change orientation
+        switch(direction){
+            case BACKWARD -> this.orientation = this.orientation.next().next();
+            case RIGHT -> this.orientation = this.orientation.next();
+            case LEFT -> this.orientation = this.orientation.previous();
+        }
+
+        // move
+        switch(this.orientation){
+            case NORTH -> {
+                Vector2d nextPosition = this.position.add(new Vector2d(0, 1));
+                if(nextPosition.getY() <= 4) this.position = nextPosition;
+            }
+            case SOUTH -> {
+                Vector2d nextPosition = this.position.add(new Vector2d(0, -1));
+                if(nextPosition.getY() >= 0) this.position = nextPosition;
+            }
+            case EAST -> {
+                Vector2d nextPosition = this.position.add(new Vector2d(1, 0));
+                if(nextPosition.getX() <= 4) this.position = nextPosition;
+            }
+            case WEST -> {
+                Vector2d nextPosition = this.position.add(new Vector2d(-1, 0));
+                if(nextPosition.getY() >= 0) this.position = nextPosition;
+            }
+        }
+
+    }
 }
 
