@@ -1,7 +1,9 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.World;
+
 public class Animal {
-    private final static int MAP_SIZE = 4;
+
     private MapDirection orientation;
     private Vector2d position;
 
@@ -17,6 +19,9 @@ public class Animal {
 
     public Vector2d getPosition(){
         return this.position;
+    }
+    public MapDirection getOrientation(){
+        return this.orientation;
     }
 
     public boolean isAt(Vector2d position){
@@ -34,7 +39,7 @@ public class Animal {
     public void move(MoveDirection direction){
         MapDirection startOrientation = this.orientation;
         Vector2d mapStartPoint = new Vector2d(0,0);
-        Vector2d mapEndPoint = new Vector2d(MAP_SIZE, MAP_SIZE);
+        Vector2d mapEndPoint = new Vector2d(World.MAP_SIZE, World.MAP_SIZE);
 
         // change orientation
         switch(direction){

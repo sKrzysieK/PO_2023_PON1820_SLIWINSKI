@@ -17,6 +17,8 @@ public class Simulation {
             this.animals.add(currentAnimal);
         }
     }
+    public List<Animal> getAnimals(){ return this.animals; }
+
     public void run(){
         int index = 0;
         for(MoveDirection direction : directions){
