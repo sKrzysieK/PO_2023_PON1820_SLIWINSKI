@@ -4,37 +4,38 @@ import agh.ics.oop.model.MoveDirection;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class OptionsParserTest {
     private final String mistake1[] = {"p", "b", "t", "f", "prawo", "r", "inny", "g", "l"};
-    private final List<MoveDirection> directions1 = Arrays.asList(
+    private final LinkedList<MoveDirection> directions1 = new LinkedList<>(Arrays.asList(
             MoveDirection.BACKWARD,
             MoveDirection.FORWARD,
             MoveDirection.RIGHT,
             MoveDirection.LEFT
-    );
+    ));
 
     private final String mistake2[] = {"abc", "b", "fff", "d", "prawo", "r", "hello", "", "l", "left", "f"};
-    private final List<MoveDirection> directions2 = Arrays.asList(
+    private final LinkedList<MoveDirection> directions2 = new LinkedList<>(Arrays.asList(
             MoveDirection.BACKWARD,
             MoveDirection.RIGHT,
             MoveDirection.LEFT,
             MoveDirection.FORWARD
-    );
+    ));
 
     @Test
     void stepTest(){
         String forward_arr[] = {"f"};
-        List<MoveDirection> forward_arr_enum = Arrays.asList(MoveDirection.FORWARD);
+        LinkedList<MoveDirection> forward_arr_enum = new LinkedList<>(Arrays.asList(MoveDirection.FORWARD));
         String right_arr[] = {"r"};
-        List<MoveDirection> right_arr_enum = Arrays.asList(MoveDirection.RIGHT);
+        LinkedList<MoveDirection> right_arr_enum = new LinkedList<>(Arrays.asList(MoveDirection.RIGHT));
         String backward_arr[] = {"b"};
-        List<MoveDirection> backward_arr_enum = Arrays.asList(MoveDirection.BACKWARD);
+        LinkedList<MoveDirection> backward_arr_enum = new LinkedList<>(Arrays.asList(MoveDirection.BACKWARD));
         String left_arr[] = {"l"};
-        List<MoveDirection> left_arr_enum = Arrays.asList(MoveDirection.LEFT);
+        LinkedList<MoveDirection> left_arr_enum = new LinkedList<>(Arrays.asList(MoveDirection.LEFT));
 
         assertIterableEquals(OptionsParser.parse(forward_arr), forward_arr_enum);
         assertIterableEquals(OptionsParser.parse(right_arr), right_arr_enum);
@@ -45,24 +46,24 @@ class OptionsParserTest {
     @Test
     void array1Test(){
         String arr1[] = {"f", "r", "b", "l"};
-        List<MoveDirection> arr1_enum = Arrays.asList(
+        LinkedList<MoveDirection> arr1_enum = new LinkedList<>(Arrays.asList(
                 MoveDirection.FORWARD,
                 MoveDirection.RIGHT,
                 MoveDirection.BACKWARD,
                 MoveDirection.LEFT
-        );
+        ));
         assertIterableEquals(OptionsParser.parse(arr1), arr1_enum);
     }
 
     @Test
     void array2Test(){
         String arr2[] = {"f", "r", "r", "f"};
-        List<MoveDirection> arr2_enum = Arrays.asList(
+        LinkedList<MoveDirection> arr2_enum = new LinkedList<>(Arrays.asList(
                 MoveDirection.FORWARD,
                 MoveDirection.RIGHT,
                 MoveDirection.RIGHT,
                 MoveDirection.FORWARD
-        );
+        ));
 
         assertIterableEquals(OptionsParser.parse(arr2), arr2_enum);
     }
@@ -70,12 +71,12 @@ class OptionsParserTest {
     @Test
     void array3Test(){
         String arr3[] = {"r", "f", "b", "l"};
-        List<MoveDirection> arr3_enum = Arrays.asList(
+        LinkedList<MoveDirection> arr3_enum = new LinkedList<>(Arrays.asList(
                 MoveDirection.RIGHT,
                 MoveDirection.FORWARD,
                 MoveDirection.BACKWARD,
                 MoveDirection.LEFT
-        );
+        ));
 
         assertIterableEquals(OptionsParser.parse(arr3), arr3_enum);
     }
@@ -83,12 +84,12 @@ class OptionsParserTest {
     @Test
     void array4Test(){
         String arr4[] = {"f", "f", "b", "l"};
-        List<MoveDirection> arr4_enum = Arrays.asList(
+        LinkedList<MoveDirection> arr4_enum = new LinkedList<>(Arrays.asList(
                 MoveDirection.FORWARD,
                 MoveDirection.FORWARD,
                 MoveDirection.BACKWARD,
                 MoveDirection.LEFT
-        );
+        ));
 
         assertIterableEquals(OptionsParser.parse(arr4), arr4_enum);
     }
