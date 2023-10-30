@@ -29,7 +29,7 @@ class AnimalTest {
     @Test
     void testMoveRight(){
         animal.move(MoveDirection.RIGHT);
-        Vector2d nextPosition = new Vector2d(startPosition.getX() + 1, startPosition.getY());
+        Vector2d nextPosition = new Vector2d(startPosition.getX(), startPosition.getY());
         assertEquals(animal.getPosition(), nextPosition);
         assertTrue(animal.isAt(nextPosition));
     }
@@ -37,7 +37,7 @@ class AnimalTest {
     @Test
     void testMoveLeft(){
         animal.move(MoveDirection.LEFT);
-        Vector2d nextPosition = new Vector2d(startPosition.getX() - 1, startPosition.getY());
+        Vector2d nextPosition = new Vector2d(startPosition.getX(), startPosition.getY());
         assertEquals(animal.getPosition(), nextPosition);
         assertTrue(animal.isAt(nextPosition));
     }

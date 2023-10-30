@@ -4,17 +4,15 @@ import agh.ics.oop.World;
 
 public class Animal {
 
-    private MapDirection orientation;
+    private MapDirection orientation = MapDirection.NORTH;
     private Vector2d position;
 
 
     public Animal(){
         this.position = new Vector2d(2,2);
-        this.orientation = MapDirection.NORTH;
     }
     public Animal(int x, int y){
         this.position = new Vector2d(x, y);
-        this.orientation = MapDirection.NORTH;
     }
 
     public Vector2d getPosition(){
@@ -43,18 +41,25 @@ public class Animal {
 
         // change orientation
         switch(direction){
-            case BACKWARD -> this.orientation = this.orientation.next().next();
-            case RIGHT -> this.orientation = this.orientation.next();
-            case LEFT -> this.orientation = this.orientation.previous();
+            case RIGHT -> {
+                this.orientation = this.orientation.next();
+                return;
+            }
+            case LEFT -> {
+                this.orientation = this.orientation.previous();
+                return;
+            }
         }
 
         // move
+        int multiplier = direction.equals(MoveDirection.FORWARD) ? 1 : -1;
         Vector2d nextPosition = switch(this.orientation){
-            case EAST -> this.position.add(new Vector2d(1,0));
-            case WEST -> this.position.add(new Vector2d(-1,0));
-            case NORTH -> this.position.add(new Vector2d(0,1));
-            case SOUTH -> this.position.add(new Vector2d(0,-1));
+            case EAST -> this.position.add(new Vector2d(multiplier,0));
+            case WEST -> this.position.add(new Vector2d(-multiplier,0));
+            case NORTH -> this.position.add(new Vector2d(0,multiplier));
+            case SOUTH -> this.position.add(new Vector2d(0,-multiplier));
         };
+
 
         if(!(nextPosition.follows(mapStartPoint) && nextPosition.precedes(mapEndPoint))){
             this.orientation = startOrientation;
