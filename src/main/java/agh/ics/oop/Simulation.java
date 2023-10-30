@@ -23,12 +23,16 @@ public class Simulation {
 
     public void run(){
         int index = 0;
+        for(Animal animal : animals){
+            map.place(animal);
+        }
+
         for(MoveDirection direction : directions){
             int animalId = index % animals.size();
             Animal currentAnimal = animals.remove();
             animals.add(currentAnimal);
-            currentAnimal.move(direction, map);
-            System.out.println("Zwierzę " + animalId + " : " + currentAnimal.getPosition().toString());
+            map.move(currentAnimal, direction);
+            System.out.println(map.toString());
             index++;
         }
 

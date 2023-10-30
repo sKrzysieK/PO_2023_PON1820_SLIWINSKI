@@ -61,7 +61,7 @@ public class Animal {
         };
 
 
-        if(validator.canMoveTo(nextPosition)){
+        if(!validator.canMoveTo(nextPosition)){
             orientation = startOrientation;
             return;
         }

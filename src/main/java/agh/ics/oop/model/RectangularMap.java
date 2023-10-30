@@ -25,20 +25,25 @@ public class RectangularMap implements WorldMap{
 
     @Override
     public void move(Animal animal, MoveDirection direction){
+        Vector2d startPosition = animal.getPosition();
         animal.move(direction, this);
+        Vector2d endPosition = animal.getPosition();
+        System.out.println("Start pos: " + startPosition + ", end pos: " + endPosition + ", orientation: " + animal.getOrientation());
+        animals.remove(startPosition);
+        animals.put(endPosition, animal);
     }
 
     @Override
     public boolean canMoveTo(Vector2d position){
         return !isOccupied(position)
                 && position.follows(new Vector2d(0,0))
-                && position.precedes(new Vector2d(this.width, this.height));
+                && position.precedes(new Vector2d(width, height));
 
     }
 
     @Override
     public boolean isOccupied(Vector2d position){
-        for(Vector2d key : this.animals.keySet()){
+        for(Vector2d key : animals.keySet()){
             if(key.equals(position)) return true;
         }
         return false;
@@ -46,13 +51,13 @@ public class RectangularMap implements WorldMap{
 
     @Override
     public Animal objectAt(Vector2d position){
-        return this.animals.get(position);
+        return animals.get(position);
     }
 
     @Override
     public String toString(){
         MapVisualizer visualizer = new MapVisualizer(this);
-        return visualizer.draw(new Vector2d(0,0), new Vector2d(this.width,this.height));
+        return visualizer.draw(new Vector2d(0,0), new Vector2d(width, height));
     }
 
 }

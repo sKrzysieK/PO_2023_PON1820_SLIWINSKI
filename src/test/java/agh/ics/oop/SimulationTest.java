@@ -1,9 +1,6 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MapDirection;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -15,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SimulationTest {
     @Test
     void goAllForward(){
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
         String directionsArr[] = new String[World.MAP_SIZE + 10] ;
         Arrays.fill(directionsArr, "f");
         LinkedList<MoveDirection> directions = OptionsParser.parse(directionsArr);
@@ -22,7 +20,7 @@ class SimulationTest {
         int start = 2;
 
         LinkedList<Vector2d> positions = new LinkedList<>(List.of(new Vector2d(start, start)));
-        Simulation simulation = new Simulation(directions, positions);
+        Simulation simulation = new Simulation(directions, positions, map);
         simulation.run();
 
         Animal animal = simulation.getAnimals().remove();
@@ -32,6 +30,7 @@ class SimulationTest {
 
     @Test
     void goAllRight(){
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
         String directionsArr[] = new String[World.MAP_SIZE + 10] ;
         Arrays.fill(directionsArr, "f");
         directionsArr[0] = "r";
@@ -41,7 +40,7 @@ class SimulationTest {
         int start = 2;
 
         LinkedList<Vector2d> positions = new LinkedList<>(List.of(new Vector2d(start,start)));
-        Simulation simulation = new Simulation(directions, positions);
+        Simulation simulation = new Simulation(directions, positions, map);
         simulation.run();
 
         Animal animal = simulation.getAnimals().remove();
@@ -51,6 +50,7 @@ class SimulationTest {
 
     @Test
     void goAllBackwards(){
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
         String directionsArr[] = new String[World.MAP_SIZE + 10] ;
         Arrays.fill(directionsArr, "b");
 
@@ -59,7 +59,7 @@ class SimulationTest {
         int start = 2;
 
         LinkedList<Vector2d> positions = new LinkedList<>(List.of(new Vector2d(start,start)));
-        Simulation simulation = new Simulation(directions, positions);
+        Simulation simulation = new Simulation(directions, positions, map);
         simulation.run();
 
         Animal animal = simulation.getAnimals().remove();
@@ -69,6 +69,7 @@ class SimulationTest {
 
     @Test
     void goAllLeft(){
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
         String directionsArr[] = new String[World.MAP_SIZE + 10] ;
         Arrays.fill(directionsArr, "f");
         directionsArr[0] = "l";
@@ -78,7 +79,7 @@ class SimulationTest {
         int start = 2;
 
         LinkedList<Vector2d> positions = new LinkedList<>(List.of(new Vector2d(start,start)));
-        Simulation simulation = new Simulation(directions, positions);
+        Simulation simulation = new Simulation(directions, positions, map);
         simulation.run();
 
         Animal animal = simulation.getAnimals().remove();
@@ -88,13 +89,14 @@ class SimulationTest {
 
     @Test
     void turnAroundAndReturn(){
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
         String directionsArr[] = {"r", "r", "r", "r"};
         LinkedList<MoveDirection> directions = OptionsParser.parse(directionsArr);
 
         int start = 3;
 
         LinkedList<Vector2d> positions = new LinkedList<>(List.of(new Vector2d(start,start)));
-        Simulation simulation = new Simulation(directions, positions);
+        Simulation simulation = new Simulation(directions, positions, map);
         simulation.run();
 
         Animal animal = simulation.getAnimals().remove();
@@ -104,6 +106,7 @@ class SimulationTest {
 
     @Test
     void oneAnimalRandomMovement(){
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
         String directionsArr[] = {"f", "r", "r", "f", "r", "f", "r", "f", "f", "f", "f", "r", "f", "f", "f", "l", "f", "r", "r", "b", "r"};
         LinkedList<MoveDirection> directions = OptionsParser.parse(directionsArr);
 
@@ -111,7 +114,7 @@ class SimulationTest {
         Vector2d endPosition = new Vector2d(3, 4);
 
         LinkedList<Vector2d> positions = new LinkedList<>(List.of(startPosition));
-        Simulation simulation = new Simulation(directions, positions);
+        Simulation simulation = new Simulation(directions, positions, map);
         simulation.run();
 
         Animal animal = simulation.getAnimals().remove();
@@ -121,23 +124,38 @@ class SimulationTest {
 
     @Test
     void twoAnimalsRandomMovement(){
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
         String directionsArr[] =
-                {"f", "l", "f", "f", "r", "f", "f", "l", "r", "b", "b", "b", "b", "l", "l", "l", "f", "f", "r", "r", "b", "r", "f"};
+                {
+                        "f", "l",
+                        "f", "f",
+                        "r", "f",
+                        "f", "l",
+                        "r", "b",
+                        "b", "b",
+                        "b", "l",
+                        "l", "l",
+                        "f", "f",
+                        "r", "r",
+                        "b", "r",
+                        "f"
+                };
         LinkedList<MoveDirection> directions = OptionsParser.parse(directionsArr);
 
         Vector2d startPositionAnimalOne = new Vector2d(0, 0);
         Vector2d startPositionAnimalTwo = new Vector2d(4, 0);
-        Vector2d endPosition = new Vector2d(2, 3);
+        Vector2d endPositionAnimalOne = new Vector2d(2, 4);
+        Vector2d endPositionAnimalTwo = new Vector2d(2, 3);
 
         LinkedList<Vector2d> positions = new LinkedList<>(List.of(startPositionAnimalOne, startPositionAnimalTwo));
-        Simulation simulation = new Simulation(directions, positions);
+        Simulation simulation = new Simulation(directions, positions, map);
         simulation.run();
 
-        Animal animalOne = simulation.getAnimals().remove();
         Animal animalTwo = simulation.getAnimals().remove();
+        Animal animalOne = simulation.getAnimals().remove();
 
-        assertEquals(endPosition, animalOne.getPosition());
-        assertEquals(endPosition, animalTwo.getPosition());
+        assertEquals(endPositionAnimalOne, animalOne.getPosition());
+        assertEquals(endPositionAnimalTwo, animalTwo.getPosition());
 
         assertEquals(animalOne.getOrientation(), MapDirection.SOUTH);
         assertEquals(animalTwo.getOrientation(), MapDirection.SOUTH);
@@ -145,6 +163,7 @@ class SimulationTest {
 
     @Test
     void fourAnimalsRandomMovement(){
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
         String directionsArr[] =
                        {"f", "r", "f", "b",
                         "r", "f", "l", "f",
@@ -160,10 +179,13 @@ class SimulationTest {
         Vector2d startPositionAnimalTwo = new Vector2d(2, 1);
         Vector2d startPositionAnimalThree = new Vector2d(3, 3);
         Vector2d startPositionAnimalFour = new Vector2d(1, 0);
-        Vector2d endPosition = new Vector2d(2, 2);
+        Vector2d endPositionAnimalOne = new Vector2d(1, 2);
+        Vector2d endPositionAnimalTwo = new Vector2d(3, 2);
+        Vector2d endPositionAnimalThree = new Vector2d(2, 3);
+        Vector2d endPositionAnimalFour = new Vector2d(2, 2);
 
         LinkedList<Vector2d> positions = new LinkedList<>(List.of(startPositionAnimalOne, startPositionAnimalTwo, startPositionAnimalThree, startPositionAnimalFour));
-        Simulation simulation = new Simulation(directions, positions);
+        Simulation simulation = new Simulation(directions, positions, map);
         simulation.run();
 
         Animal animalOne = simulation.getAnimals().remove();
@@ -171,10 +193,10 @@ class SimulationTest {
         Animal animalThree = simulation.getAnimals().remove();
         Animal animalFour = simulation.getAnimals().remove();
 
-        assertEquals(endPosition, animalOne.getPosition());
-        assertEquals(endPosition, animalTwo.getPosition());
-        assertEquals(endPosition, animalThree.getPosition());
-        assertEquals(endPosition, animalFour.getPosition());
+        assertEquals(endPositionAnimalOne, animalOne.getPosition());
+        assertEquals(endPositionAnimalTwo, animalTwo.getPosition());
+        assertEquals(endPositionAnimalThree, animalThree.getPosition());
+        assertEquals(endPositionAnimalFour, animalFour.getPosition());
 
         assertEquals(animalOne.getOrientation(), MapDirection.SOUTH);
         assertEquals(animalTwo.getOrientation(), MapDirection.NORTH);
