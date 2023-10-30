@@ -5,6 +5,7 @@ import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class World {
@@ -15,12 +16,12 @@ public class World {
         System.out.println(animal1.isAt(new Vector2d(2, -2)));
         System.out.println(animal1.isAt(new Vector2d(2,2)));
 
-        List<MoveDirection> directions = OptionsParser.parse(args);
-        List<Vector2d> positions = List.of(new Vector2d(2,2));
+        LinkedList<MoveDirection> directions = OptionsParser.parse(args);
+        LinkedList<Vector2d> positions = new LinkedList<>(List.of(new Vector2d(2,2)));
         Simulation simulation = new Simulation(directions, positions);
         simulation.run();
     }
-    public static void run(List<MoveDirection> directions){
+    public static void run(LinkedList<MoveDirection> directions){
         for(MoveDirection direction: directions){
             String direction_text = switch(direction){
                 case FORWARD -> "do przodu";
