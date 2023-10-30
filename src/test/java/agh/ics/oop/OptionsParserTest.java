@@ -9,16 +9,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OptionsParserTest {
-    String mistake1[] = {"p", "b", "t", "f", "prawo", "r", "inny", "g", "l"};
-    List<MoveDirection> directions1 = Arrays.asList(
+    private final String mistake1[] = {"p", "b", "t", "f", "prawo", "r", "inny", "g", "l"};
+    private final List<MoveDirection> directions1 = Arrays.asList(
             MoveDirection.BACKWARD,
             MoveDirection.FORWARD,
             MoveDirection.RIGHT,
             MoveDirection.LEFT
     );
 
-    String mistake2[] = {"abc", "b", "fff", "d", "prawo", "r", "hello", "", "l", "left", "f"};
-    List<MoveDirection> directions2 = Arrays.asList(
+    private final String mistake2[] = {"abc", "b", "fff", "d", "prawo", "r", "hello", "", "l", "left", "f"};
+    private final List<MoveDirection> directions2 = Arrays.asList(
             MoveDirection.BACKWARD,
             MoveDirection.RIGHT,
             MoveDirection.LEFT,

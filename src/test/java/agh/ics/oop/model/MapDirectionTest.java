@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MapDirectionTest {
-    MapDirection north = MapDirection.NORTH;
-    MapDirection east = MapDirection.EAST;
-    MapDirection south = MapDirection.SOUTH;
-    MapDirection west = MapDirection.WEST;
+    private final MapDirection north = MapDirection.NORTH;
+    private final MapDirection east = MapDirection.EAST;
+    private final MapDirection south = MapDirection.SOUTH;
+    private final MapDirection west = MapDirection.WEST;
 
     @Test
     void next() {
