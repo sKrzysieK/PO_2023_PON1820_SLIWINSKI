@@ -9,17 +9,17 @@ public class Animal {
 
 
     public Animal(){
-        this.position = new Vector2d(2,2);
+        position = new Vector2d(2,2);
     }
     public Animal(int x, int y){
-        this.position = new Vector2d(x, y);
+        position = new Vector2d(x, y);
     }
 
     public Vector2d getPosition(){
-        return this.position;
+        return position;
     }
     public MapDirection getOrientation(){
-        return this.orientation;
+        return orientation;
     }
 
     public boolean isAt(Vector2d position){
@@ -28,45 +28,45 @@ public class Animal {
 
     @Override
     public String toString(){
-        return "Current Position: " +
-                this.position.toString() +
-                ", Current Orientation: " +
-                this.orientation.toString();
+        return switch (orientation){
+            case NORTH -> "N";
+            case SOUTH -> "S";
+            case EAST -> "E";
+            case WEST -> "W";
+        };
     }
 
-    public void move(MoveDirection direction){
-        MapDirection startOrientation = this.orientation;
-        Vector2d mapStartPoint = new Vector2d(0,0);
-        Vector2d mapEndPoint = new Vector2d(World.MAP_SIZE, World.MAP_SIZE);
+    public void move(MoveDirection direction, MoveValidator validator){
+        MapDirection startOrientation = orientation;
 
         // change orientation
         switch(direction){
             case RIGHT -> {
-                this.orientation = this.orientation.next();
+                orientation = orientation.next();
                 return;
             }
             case LEFT -> {
-                this.orientation = this.orientation.previous();
+                orientation = orientation.previous();
                 return;
             }
         }
 
         // move
         int multiplier = direction.equals(MoveDirection.FORWARD) ? 1 : -1;
-        Vector2d nextPosition = switch(this.orientation){
-            case EAST -> this.position.add(new Vector2d(multiplier,0));
-            case WEST -> this.position.add(new Vector2d(-multiplier,0));
-            case NORTH -> this.position.add(new Vector2d(0,multiplier));
-            case SOUTH -> this.position.add(new Vector2d(0,-multiplier));
+        Vector2d nextPosition = switch(orientation){
+            case EAST -> position.add(new Vector2d(multiplier,0));
+            case WEST -> position.add(new Vector2d(-multiplier,0));
+            case NORTH -> position.add(new Vector2d(0,multiplier));
+            case SOUTH -> position.add(new Vector2d(0,-multiplier));
         };
 
 
-        if(!(nextPosition.follows(mapStartPoint) && nextPosition.precedes(mapEndPoint))){
-            this.orientation = startOrientation;
+        if(validator.canMoveTo(nextPosition)){
+            orientation = startOrientation;
             return;
         }
 
-        this.position = nextPosition;
+        position = nextPosition;
 
     }
 }

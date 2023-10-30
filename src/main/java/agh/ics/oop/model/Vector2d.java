@@ -50,7 +50,7 @@ public class Vector2d {
     }
 
     public Vector2d opposite(){
-        return new Vector2d(-this.x, -this.y);
+        return new Vector2d(-x, -y);
     }
 
     @Override
