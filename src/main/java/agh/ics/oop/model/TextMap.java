@@ -11,6 +11,10 @@ public class TextMap implements WorldMap<String, Integer>{
         this.N = 0;
     }
 
+    public int getLength(){
+        return N;
+    }
+
     @Override
     public boolean place(String str){
         this.strings.put(N, str);

@@ -36,7 +36,7 @@ public class Animal {
         };
     }
 
-    public void move(MoveDirection direction, MoveValidator validator){
+    public void move(MoveDirection direction, MoveValidator<Vector2d> validator){
         MapDirection startOrientation = orientation;
 
         // change orientation
