@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Vector2dTest {
-    Vector2d v1 = new Vector2d(2, -5);
-    Vector2d v2 = new Vector2d(-20, 13);
-    Vector2d v3 = new Vector2d(33, -56);
-    Vector2d v4 = new Vector2d(6, -17);
-    Vector2d v5 = new Vector2d(33, -15);
-    Vector2d null_vector = new Vector2d(0, 0);
-    Vector2d v1_copy = new Vector2d(2, -5);
+    private final Vector2d v1 = new Vector2d(2, -5);
+    private final Vector2d v2 = new Vector2d(-20, 13);
+    private final Vector2d v3 = new Vector2d(33, -56);
+    private final Vector2d v4 = new Vector2d(6, -17);
+    private final Vector2d v5 = new Vector2d(33, -15);
+    private final Vector2d null_vector = new Vector2d(0, 0);
+    private final Vector2d v1_copy = new Vector2d(2, -5);
 
 
     @Test
