@@ -1,18 +1,16 @@
-package agh.ics.oop.model;
+package agh.ics.oop.model.maps;
+
+import agh.ics.oop.model.MoveDirection;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class TextMap implements WorldMap<String, Integer>{
+public class TextMap implements WorldMap<String, Integer> {
     private int N;
-    private Map<Integer, String> strings = new HashMap<>();
+    private final Map<Integer, String> strings = new HashMap<>();
 
     public TextMap(){
         this.N = 0;
-    }
-
-    public int getLength(){
-        return N;
     }
 
     @Override
@@ -30,22 +28,18 @@ public class TextMap implements WorldMap<String, Integer>{
         }
         if(strIndex == null) return;
         switch(direction){
-            case RIGHT -> {
-                if(canMoveTo(strIndex + 1)) {
-                    String other = strings.get(strIndex + 1);
-                    strings.put(strIndex + 1, str);
-                    strings.put(strIndex, other);
-                }
-            }
-            case LEFT -> {
-                if(canMoveTo(strIndex - 1)){
-                    String other = strings.get(strIndex - 1);
-                    strings.put(strIndex - 1, str);
-                    strings.put(strIndex, other);
-                }
-            }
+            case RIGHT -> shift(str, strIndex, 1);
+            case LEFT -> shift(str, strIndex, -1);
         }
+    }
 
+    private void shift(String str, int currStrIndex, int modifier){
+        int nextStringIndex = currStrIndex + modifier;
+        if(canMoveTo(nextStringIndex)){
+            String other = strings.get(nextStringIndex);
+            strings.put(nextStringIndex, str);
+            strings.put(currStrIndex, other);
+        }
     }
 
     @Override
@@ -55,7 +49,11 @@ public class TextMap implements WorldMap<String, Integer>{
 
     @Override
     public boolean isOccupied(Integer position){
-        return false;
+        return position >=0 && position <= N;
+    }
+
+    public int getLength(){
+        return N;
     }
 
     @Override

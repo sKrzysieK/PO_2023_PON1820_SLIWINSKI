@@ -18,7 +18,6 @@ public class OptionsParser {
                 case "r" -> directions.add(MoveDirection.RIGHT);
             }
         }
-
         return directions;
     }
 }

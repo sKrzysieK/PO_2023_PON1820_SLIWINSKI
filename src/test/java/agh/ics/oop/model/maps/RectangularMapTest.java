@@ -1,5 +1,11 @@
-package agh.ics.oop.model;
+package agh.ics.oop.model.maps;
 
+import agh.ics.oop.model.MapDirection;
+import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.maps.RectangularMap;
+import agh.ics.oop.model.world_elements.Animal;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +18,7 @@ class RectangularMapTest {
         RectangularMap map = new RectangularMap(4,4);
         assertTrue(map.place(testAnimal1));
         assertFalse(map.place(testAnimal2));
-        assertEquals(testAnimal1.getPosition(), new Vector2d(2,2));
+        Assertions.assertEquals(testAnimal1.getPosition(), new Vector2d(2,2));
     }
 
     @Test
@@ -41,7 +47,7 @@ class RectangularMapTest {
         map.place(testAnimal);
         map.move(testAnimal, MoveDirection.FORWARD);
         assertEquals(testAnimal.getPosition(), new Vector2d(2,3));
-        assertEquals(testAnimal.getOrientation(), MapDirection.NORTH);
+        Assertions.assertEquals(testAnimal.getOrientation(), MapDirection.NORTH);
     }
 
     @Test

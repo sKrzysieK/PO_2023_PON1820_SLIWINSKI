@@ -1,6 +1,8 @@
 package agh.ics.oop;
 
 import agh.ics.oop.model.*;
+import agh.ics.oop.model.maps.RectangularMap;
+import agh.ics.oop.model.world_elements.Animal;
 
 import java.util.LinkedList;
 import java.util.List;

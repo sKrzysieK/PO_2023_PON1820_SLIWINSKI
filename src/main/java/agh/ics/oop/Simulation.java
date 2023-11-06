@@ -1,10 +1,10 @@
 package agh.ics.oop;
 
 import agh.ics.oop.model.*;
+import agh.ics.oop.model.maps.WorldMap;
+import agh.ics.oop.model.world_elements.Animal;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Simulation {
     private LinkedList<Animal> animals = new LinkedList<>();

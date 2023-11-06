@@ -1,6 +1,7 @@
-package agh.ics.oop.model;
+package agh.ics.oop.model.maps;
 
 import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.MoveValidator;
 import agh.ics.oop.model.Vector2d;
 
 /**

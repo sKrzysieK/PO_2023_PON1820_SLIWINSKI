@@ -1,5 +1,7 @@
-package agh.ics.oop.model;
+package agh.ics.oop.model.maps;
 
+import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.maps.TextMap;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,6 +1,10 @@
-package agh.ics.oop.model;
+package agh.ics.oop.model.world_elements;
 
 import agh.ics.oop.World;
+import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.maps.RectangularMap;
+import agh.ics.oop.model.world_elements.Animal;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
