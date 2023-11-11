@@ -3,6 +3,7 @@ package agh.ics.oop.model.maps;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.MoveValidator;
 import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.world_elements.WorldElement;
 
 /**
  * The interface responsible for interacting with the map of the world.
@@ -10,7 +11,7 @@ import agh.ics.oop.model.Vector2d;
  *
  * @author apohllo, idzik
  */
-public interface WorldMap<T, P> extends MoveValidator<P> {
+public interface WorldMap<T extends WorldElement<P>, P> extends MoveValidator<P> {
 
     /**
      * Place an object on the map.
