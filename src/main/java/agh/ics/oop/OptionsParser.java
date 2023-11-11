@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class OptionsParser {
-    public static LinkedList<MoveDirection> parse(String args[]){
-        LinkedList<MoveDirection> directions = new LinkedList<>();
+    public static List<MoveDirection> parse(String args[]){
+        List<MoveDirection> directions = new ArrayList<>();
         for(String arg: args){
             switch(arg){
                 case "f" -> directions.add(MoveDirection.FORWARD);

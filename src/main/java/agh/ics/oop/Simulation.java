@@ -4,14 +4,16 @@ import agh.ics.oop.model.*;
 import agh.ics.oop.model.maps.WorldMap;
 import agh.ics.oop.model.world_elements.Animal;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Simulation {
-    private LinkedList<Animal> animals = new LinkedList<>();
-    private LinkedList<MoveDirection> directions;
+    private List<Animal> animals = new ArrayList<>();
+    private List<MoveDirection> directions;
     private WorldMap<Animal, Vector2d> map;
 
-    public Simulation(LinkedList<MoveDirection> directions, LinkedList<Vector2d> startPositions, WorldMap<Animal, Vector2d> map){
+    public Simulation(List<MoveDirection> directions, List<Vector2d> startPositions, WorldMap<Animal, Vector2d> map){
         this.directions = directions;
         this.map = map;
         for(Vector2d position : startPositions){
@@ -19,7 +21,7 @@ public class Simulation {
             animals.add(currentAnimal);
         }
     }
-    public LinkedList<Animal> getAnimals(){ return animals; }
+    public List<Animal> getAnimals(){ return animals; }
 
     public void run(){
         int index = 0;
@@ -29,8 +31,7 @@ public class Simulation {
 
         for(MoveDirection direction : directions){
             int animalId = index % animals.size();
-            Animal currentAnimal = animals.remove();
-            animals.add(currentAnimal);
+            Animal currentAnimal = animals.get(animalId);
             map.move(currentAnimal, direction);
             System.out.println(map.toString());
             index++;
