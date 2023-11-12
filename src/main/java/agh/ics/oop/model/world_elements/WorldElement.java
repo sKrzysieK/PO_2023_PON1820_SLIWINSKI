@@ -1,9 +1,11 @@
 package agh.ics.oop.model.world_elements;
 
-public interface WorldElement<P> {
-    P getPosition();
+import agh.ics.oop.model.Vector2d;
 
-    boolean isAt(P position);
+public interface WorldElement {
+    Vector2d getPosition();
+
+    boolean isAt(Vector2d position);
 
     String toString();
 }

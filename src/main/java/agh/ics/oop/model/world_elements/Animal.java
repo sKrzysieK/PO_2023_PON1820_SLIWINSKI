@@ -5,7 +5,7 @@ import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.MoveValidator;
 import agh.ics.oop.model.Vector2d;
 
-public class Animal implements WorldElement<Vector2d>{
+public class Animal implements WorldElement{
     private final static int DEFAULT_START_POS = 2;
     private MapDirection orientation = MapDirection.NORTH;
     private Vector2d position;

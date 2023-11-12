@@ -11,7 +11,7 @@ import agh.ics.oop.model.world_elements.WorldElement;
  *
  * @author apohllo, idzik
  */
-public interface WorldMap<T extends WorldElement<P>, P> extends MoveValidator<P> {
+public interface WorldMap<T extends WorldElement, P> extends MoveValidator<P> {
 
     /**
      * Place an object on the map.
