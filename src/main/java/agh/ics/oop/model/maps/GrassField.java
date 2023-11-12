@@ -1,5 +1,6 @@
 package agh.ics.oop.model.maps;
 
+import agh.ics.oop.RandomPositionGenerator;
 import agh.ics.oop.model.MapVisualizer;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.world_elements.Grass;
@@ -18,17 +19,10 @@ public class GrassField extends AbstractWorldMap {
     }
 
     private void generateGrass(){
-        int grassLeftCounter = grassCount;
         int sqrt10N = (int) Math.sqrt(10 * grassCount);
-        Vector2d grassUpperRight = new Vector2d(sqrt10N, sqrt10N);
-        while(grassLeftCounter > 0){
-            int randomX = (int) (Math.random() * grassUpperRight.getX());
-            int randomY = (int) (Math.random() * grassUpperRight.getY());
-            Vector2d newRandomPosition = new Vector2d(randomX, randomY);
-            if(!this.hasGrass(newRandomPosition)){
-                this.place(new Grass(newRandomPosition));
-                grassLeftCounter--;
-            }
+        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(sqrt10N, sqrt10N, grassCount);
+        for(Vector2d grassPosition : randomPositionGenerator) {
+            grasses.put(grassPosition, new Grass(grassPosition));
         }
     }
 

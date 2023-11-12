@@ -11,7 +11,7 @@ import java.util.List;
 public class World {
     public final static int MAP_SIZE = 4;
 //    private final static RectangularMap map = new RectangularMap(MAP_SIZE, MAP_SIZE);
-    private final static GrassField map = new GrassField(2);
+    private final static GrassField map = new GrassField(20);
     public static void main(String args[]){
         List<MoveDirection> directions = OptionsParser.parse(args);
         List<Vector2d> positions = List.of(new Vector2d(2,2));
