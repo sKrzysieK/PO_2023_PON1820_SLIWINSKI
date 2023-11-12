@@ -18,7 +18,6 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
     @Override
     public boolean place(WorldElement obj){
         if(!obj.getClass().getSimpleName().equals("Animal")) return false;
-
         Animal animal = (Animal) obj;
         Vector2d newPosition = obj.getPosition();
         if (this.canMoveTo(newPosition)) {

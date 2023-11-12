@@ -21,7 +21,6 @@ public class GrassField extends AbstractWorldMap {
         int grassLeftCounter = grassCount;
         int sqrt10N = (int) Math.sqrt(10 * grassCount);
         Vector2d grassUpperRight = new Vector2d(sqrt10N, sqrt10N);
-
         while(grassLeftCounter > 0){
             int randomX = (int) (Math.random() * grassUpperRight.getX());
             int randomY = (int) (Math.random() * grassUpperRight.getY());
