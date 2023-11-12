@@ -13,7 +13,7 @@ public class Simulation {
     private List<MoveDirection> directions;
     private WorldMap<Animal, Vector2d> map;
 
-    public Simulation(List<MoveDirection> directions, List<Vector2d> startPositions, WorldMap<Animal, Vector2d> map){
+    public Simulation(List<MoveDirection> directions, List<Vector2d> startPositions, WorldMap map){
         this.directions = directions;
         this.map = map;
         for(Vector2d position : startPositions){

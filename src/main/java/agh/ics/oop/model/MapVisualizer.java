@@ -13,14 +13,14 @@ public class MapVisualizer {
     private static final String EMPTY_CELL = " ";
     private static final String FRAME_SEGMENT = "-";
     private static final String CELL_SEGMENT = "|";
-    private final WorldMap<Animal, Vector2d> map;
+    private final WorldMap map;
 
     /**
      * Initializes the MapVisualizer with an instance of map to visualize.
      *
      * @param map
      */
-    public MapVisualizer(WorldMap<Animal, Vector2d> map) {
+    public MapVisualizer(WorldMap map) {
         this.map = map;
     }
 
@@ -74,12 +74,12 @@ public class MapVisualizer {
     }
 
     private String drawObject(Vector2d currentPosition) {
-        if (this.map.isOccupied(currentPosition)) {
+//        if (this.map.isOccupied(currentPosition)) {
             Object object = this.map.objectAt(currentPosition);
             if (object != null) {
                 return object.toString();
             }
-        }
+//        }
         return EMPTY_CELL;
     }
 }
