@@ -3,6 +3,7 @@ package agh.ics.oop;
 import agh.ics.oop.model.*;
 import agh.ics.oop.model.maps.WorldMap;
 import agh.ics.oop.model.world_elements.Animal;
+import agh.ics.oop.model.world_elements.WorldElement;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -11,9 +12,9 @@ import java.util.List;
 public class Simulation {
     private final List<Animal> animals = new ArrayList<>();
     private final List<MoveDirection> directions;
-    private final WorldMap<Animal, Vector2d> map;
+    private final WorldMap<WorldElement, Vector2d> map;
 
-    public Simulation(List<MoveDirection> directions, List<Vector2d> startPositions, WorldMap map){
+    public Simulation(List<MoveDirection> directions, List<Vector2d> startPositions, WorldMap<WorldElement, Vector2d> map){
         this.directions = directions;
         this.map = map;
         for(Vector2d position : startPositions){
