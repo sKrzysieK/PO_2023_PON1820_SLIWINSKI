@@ -70,8 +70,18 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
+    public Map<Vector2d, WorldElement> getElements(){
+        Map<Vector2d, WorldElement> elements = new HashMap<>();
+        elements.putAll(grasses);
+        elements.putAll(super.getElements());
+        return elements;
+    }
+
+    @Override
     public String toString(){
         this.calcExtremes();
         return super.toString();
     }
+
+
 }

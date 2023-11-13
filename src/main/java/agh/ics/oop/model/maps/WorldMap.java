@@ -5,6 +5,9 @@ import agh.ics.oop.model.MoveValidator;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.world_elements.WorldElement;
 
+import java.util.Map;
+
+
 /**
  * The interface responsible for interacting with the map of the world.
  * Assumes that Vector2d and MoveDirection classes are defined.
@@ -44,4 +47,6 @@ public interface WorldMap<T extends WorldElement, P> extends MoveValidator<P> {
      * @return object or null if the position is not occupied.
      */
     T objectAt(P position);
+
+    Map<P, T> getElements();
 }

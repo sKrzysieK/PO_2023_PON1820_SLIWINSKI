@@ -63,5 +63,9 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
         return visualizer.draw(mapLowerLeft, mapUpperRight);
     }
 
+    @Override
+    public Map<Vector2d, WorldElement> getElements(){
+        return new HashMap<>(animals);
+    }
 
 }

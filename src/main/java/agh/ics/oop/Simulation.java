@@ -9,9 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Simulation {
-    private List<Animal> animals = new ArrayList<>();
-    private List<MoveDirection> directions;
-    private WorldMap<Animal, Vector2d> map;
+    private final List<Animal> animals = new ArrayList<>();
+    private final List<MoveDirection> directions;
+    private final WorldMap<Animal, Vector2d> map;
 
     public Simulation(List<MoveDirection> directions, List<Vector2d> startPositions, WorldMap map){
         this.directions = directions;

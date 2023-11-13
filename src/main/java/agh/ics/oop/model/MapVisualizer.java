@@ -2,6 +2,7 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.model.maps.WorldMap;
 import agh.ics.oop.model.world_elements.Animal;
+import agh.ics.oop.model.world_elements.WorldElement;
 
 /**
  * The map visualizer converts the {@link WorldMap} map into a string
@@ -13,14 +14,14 @@ public class MapVisualizer {
     private static final String EMPTY_CELL = " ";
     private static final String FRAME_SEGMENT = "-";
     private static final String CELL_SEGMENT = "|";
-    private final WorldMap map;
+    private final WorldMap<WorldElement, Vector2d> map;
 
     /**
      * Initializes the MapVisualizer with an instance of map to visualize.
      *
      * @param map
      */
-    public MapVisualizer(WorldMap map) {
+    public MapVisualizer(WorldMap<WorldElement, Vector2d> map) {
         this.map = map;
     }
 
