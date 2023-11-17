@@ -3,9 +3,9 @@ package agh.ics.oop.model.maps;
 import agh.ics.oop.model.MapVisualizer;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 import agh.ics.oop.model.world_elements.Animal;
 import agh.ics.oop.model.world_elements.WorldElement;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,14 +15,13 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
     protected Vector2d mapUpperRight = new Vector2d(0, 0);
 
     @Override
-    public boolean place(WorldElement obj){
-        if(!(obj instanceof Animal animal)) return false;
-        Vector2d newPosition = obj.getPosition();
-        if (this.canMoveTo(newPosition)) {
+    public void place(WorldElement obj) throws PositionAlreadyOccupiedException{
+        if(obj instanceof Animal animal) {
+            Vector2d newPosition = obj.getPosition();
+            if (!this.canMoveTo(newPosition)) throw new PositionAlreadyOccupiedException(newPosition);
             animals.put(newPosition, animal);
-            return true;
         }
-        return  false;
+
     }
 
     @Override

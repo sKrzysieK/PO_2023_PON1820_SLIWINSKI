@@ -2,6 +2,7 @@ package agh.ics.oop.model.maps;
 
 import agh.ics.oop.RandomPositionGenerator;
 import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 import agh.ics.oop.model.world_elements.Grass;
 import agh.ics.oop.model.world_elements.WorldElement;
 
@@ -24,7 +25,11 @@ public class GrassField extends AbstractWorldMap {
         int maxRange = calcMaxRange();
         RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(maxRange, grassCount);
         for(Vector2d grassPosition : randomPositionGenerator) {
-            place(new Grass(grassPosition));
+            try{
+                place(new Grass(grassPosition));
+            } catch (PositionAlreadyOccupiedException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -42,16 +47,12 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    public boolean place(WorldElement obj){
-        if(super.place(obj)) return true;
+    public void place(WorldElement obj) throws PositionAlreadyOccupiedException{
+        super.place(obj);
         if(obj instanceof Grass grass){
             Vector2d newPosition = grass.getPosition();
-            if(!this.hasGrass(newPosition)){
-                grasses.put(newPosition, grass);
-                return true;
-            }
+            grasses.put(newPosition, grass);
         }
-        return false;
     }
 
     private boolean hasGrass(Vector2d position){

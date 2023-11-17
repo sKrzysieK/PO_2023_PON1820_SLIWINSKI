@@ -10,9 +10,11 @@ public class RectangularMap extends AbstractWorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position){
-        return super.canMoveTo(position)
-                && position.follows(mapLowerLeft)
-                && position.precedes(mapUpperRight);
+        return super.canMoveTo(position) && isWithinBoundaries(position);
+    }
+
+    private boolean isWithinBoundaries(Vector2d position){
+        return position.follows(mapLowerLeft) && position.precedes(mapUpperRight);
     }
 
 }
