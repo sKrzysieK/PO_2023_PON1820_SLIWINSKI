@@ -12,10 +12,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimulationTest {
+    private final static int MAP_SIZE = 4;
     @Test
     void goAllForward(){
-        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
-        String directionsArr[] = new String[World.MAP_SIZE + 10] ;
+        RectangularMap map = new RectangularMap(MAP_SIZE, MAP_SIZE);
+        String directionsArr[] = new String[MAP_SIZE + 10] ;
         Arrays.fill(directionsArr, "f");
         List<MoveDirection> directions = OptionsParser.parse(directionsArr);
 
@@ -26,14 +27,14 @@ class SimulationTest {
         simulation.run();
 
         Animal animal = simulation.getAnimals().get(0);
-        assertEquals(new Vector2d(start, World.MAP_SIZE), animal.getPosition());
+        assertEquals(new Vector2d(start, MAP_SIZE), animal.getPosition());
         assertEquals(animal.getOrientation(), MapDirection.NORTH);
     }
 
     @Test
     void goAllRight(){
-        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
-        String directionsArr[] = new String[World.MAP_SIZE + 10] ;
+        RectangularMap map = new RectangularMap(MAP_SIZE, MAP_SIZE);
+        String directionsArr[] = new String[MAP_SIZE + 10] ;
         Arrays.fill(directionsArr, "f");
         directionsArr[0] = "r";
 
@@ -46,14 +47,14 @@ class SimulationTest {
         simulation.run();
 
         Animal animal = simulation.getAnimals().get(0);
-        assertEquals(new Vector2d(World.MAP_SIZE, start), animal.getPosition());
+        assertEquals(new Vector2d(MAP_SIZE, start), animal.getPosition());
         assertEquals(animal.getOrientation(), MapDirection.EAST);
     }
 
     @Test
     void goAllBackwards(){
-        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
-        String directionsArr[] = new String[World.MAP_SIZE + 10] ;
+        RectangularMap map = new RectangularMap(MAP_SIZE, MAP_SIZE);
+        String directionsArr[] = new String[MAP_SIZE + 10] ;
         Arrays.fill(directionsArr, "b");
 
         List<MoveDirection> directions = OptionsParser.parse(directionsArr);
@@ -71,8 +72,8 @@ class SimulationTest {
 
     @Test
     void goAllLeft(){
-        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
-        String directionsArr[] = new String[World.MAP_SIZE + 10] ;
+        RectangularMap map = new RectangularMap(MAP_SIZE, MAP_SIZE);
+        String directionsArr[] = new String[MAP_SIZE + 10] ;
         Arrays.fill(directionsArr, "f");
         directionsArr[0] = "l";
 
@@ -91,7 +92,7 @@ class SimulationTest {
 
     @Test
     void turnAroundAndReturn(){
-        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
+        RectangularMap map = new RectangularMap(MAP_SIZE, MAP_SIZE);
         String directionsArr[] = {"r", "r", "r", "r"};
         List<MoveDirection> directions = OptionsParser.parse(directionsArr);
 
@@ -108,7 +109,7 @@ class SimulationTest {
 
     @Test
     void oneAnimalRandomMovement(){
-        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
+        RectangularMap map = new RectangularMap(MAP_SIZE, MAP_SIZE);
         String directionsArr[] = {"f", "r", "r", "f", "r", "f", "r", "f", "f", "f", "f", "r", "f", "f", "f", "l", "f", "r", "r", "b", "r"};
         List<MoveDirection> directions = OptionsParser.parse(directionsArr);
 
@@ -126,7 +127,7 @@ class SimulationTest {
 
     @Test
     void twoAnimalsRandomMovement(){
-        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
+        RectangularMap map = new RectangularMap(MAP_SIZE, MAP_SIZE);
         String directionsArr[] =
                 {
                         "f", "l",
@@ -165,7 +166,7 @@ class SimulationTest {
 
     @Test
     void fourAnimalsRandomMovement(){
-        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
+        RectangularMap map = new RectangularMap(MAP_SIZE, MAP_SIZE);
         String directionsArr[] =
                        {"f", "r", "f", "b",
                         "r", "f", "l", "f",

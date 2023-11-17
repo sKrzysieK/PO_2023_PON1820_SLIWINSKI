@@ -6,7 +6,6 @@ import agh.ics.oop.model.maps.RectangularMap;
 import java.util.List;
 
 public class World {
-    public final static int MAP_SIZE = 4;
 //    private final static RectangularMap map = new RectangularMap(MAP_SIZE, MAP_SIZE);
     private final static GrassField map = new GrassField(20);
 
