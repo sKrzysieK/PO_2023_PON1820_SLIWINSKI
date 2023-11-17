@@ -1,11 +1,6 @@
 package agh.ics.oop.model.maps;
 
-import agh.ics.oop.model.*;
-import agh.ics.oop.model.world_elements.Animal;
-import agh.ics.oop.model.world_elements.WorldElement;
-
-import java.util.HashMap;
-import java.util.Map;
+import agh.ics.oop.model.Vector2d;
 
 public class RectangularMap extends AbstractWorldMap {
 

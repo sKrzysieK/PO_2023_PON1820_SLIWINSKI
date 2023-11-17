@@ -32,7 +32,7 @@ public class GrassFieldTest {
 
     @Test
     void canMoveToTest(){
-        Animal testAnimal = new Animal(4, 4);
+        Animal testAnimal = new Animal(new Vector2d(4, 4));
         GrassField map = new GrassField(10);
         map.place(testAnimal);
         assertTrue(map.canMoveTo(new Vector2d(511,-3245)));

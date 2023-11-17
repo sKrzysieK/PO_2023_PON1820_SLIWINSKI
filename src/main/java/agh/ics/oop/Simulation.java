@@ -6,7 +6,6 @@ import agh.ics.oop.model.world_elements.Animal;
 import agh.ics.oop.model.world_elements.WorldElement;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Simulation {
@@ -17,26 +16,27 @@ public class Simulation {
     public Simulation(List<MoveDirection> directions, List<Vector2d> startPositions, WorldMap<WorldElement, Vector2d> map){
         this.directions = directions;
         this.map = map;
-        for(Vector2d position : startPositions){
-            Animal currentAnimal = new Animal(position.getX(), position.getY());
+        populate(startPositions);
+    }
+
+    private void populate(List<Vector2d> positions){
+        for(Vector2d position : positions){
+            Animal currentAnimal = new Animal(position);
             animals.add(currentAnimal);
+            map.place(currentAnimal);
         }
     }
+
     public List<Animal> getAnimals(){ return animals; }
 
     public void run(){
         int index = 0;
-        for(Animal animal : animals){
-            map.place(animal);
-        }
-
         for(MoveDirection direction : directions){
             int animalId = index % animals.size();
             Animal currentAnimal = animals.get(animalId);
             map.move(currentAnimal, direction);
-            System.out.println(map.toString());
+            System.out.println(map);
             index++;
         }
-
     }
 }

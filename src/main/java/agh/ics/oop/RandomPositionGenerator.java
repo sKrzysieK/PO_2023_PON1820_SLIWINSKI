@@ -7,22 +7,20 @@ import java.util.Iterator;
 import java.util.List;
 
 public class RandomPositionGenerator implements Iterable<Vector2d> {
-    private final int maxWidth;
-    private final int maxHeight;
+    private final int maxRange;
     private final int grassCount;
     private final List<Vector2d> positions;
 
-    public RandomPositionGenerator(int maxWidth, int maxHeight, int grassCount) {
-        this.maxWidth = maxWidth;
-        this.maxHeight = maxHeight;
+    public RandomPositionGenerator(int maxRange, int grassCount) {
+        this.maxRange = maxRange;
         this.grassCount = grassCount;
         this.positions = generateRandomPositions();
     }
 
     private List<Vector2d> generateRandomPositions() {
         List<Vector2d> allPossiblePositions = new ArrayList<>();
-        for (int x = 0; x < maxWidth; x++) {
-            for (int y = 0; y < maxHeight; y++) {
+        for (int x = 0; x < maxRange; x++) {
+            for (int y = 0; y < maxRange; y++) {
                 allPossiblePositions.add(new Vector2d(x, y));
             }
         }

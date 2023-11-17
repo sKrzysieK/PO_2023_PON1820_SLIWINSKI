@@ -4,7 +4,6 @@ import agh.ics.oop.model.MapVisualizer;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.world_elements.Animal;
-import agh.ics.oop.model.world_elements.Grass;
 import agh.ics.oop.model.world_elements.WorldElement;
 
 import java.util.HashMap;
@@ -17,8 +16,7 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
 
     @Override
     public boolean place(WorldElement obj){
-        if(!obj.getClass().getSimpleName().equals("Animal")) return false;
-        Animal animal = (Animal) obj;
+        if(!(obj instanceof Animal animal)) return false;
         Vector2d newPosition = obj.getPosition();
         if (this.canMoveTo(newPosition)) {
             animals.put(newPosition, animal);
@@ -29,8 +27,7 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
 
     @Override
     public void move(WorldElement obj, MoveDirection direction){
-        if(!obj.getClass().getSimpleName().equals("Animal")) return;
-        Animal animal = (Animal) obj;
+        if(!(obj instanceof Animal animal)) return;
         Vector2d startPosition = animal.getPosition();
         animal.move(direction, this);
         Vector2d endPosition = animal.getPosition();
@@ -46,10 +43,7 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
 
     @Override
     public boolean isOccupied(Vector2d position){
-        for(Vector2d key : animals.keySet()){
-            if(key.equals(position)) return true;
-        }
-        return false;
+        return animals.containsKey(position);
     }
 
     @Override

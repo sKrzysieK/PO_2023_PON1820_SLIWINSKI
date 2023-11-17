@@ -1,7 +1,6 @@
 package agh.ics.oop.model.maps;
 
 import agh.ics.oop.RandomPositionGenerator;
-import agh.ics.oop.model.MapVisualizer;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.world_elements.Grass;
 import agh.ics.oop.model.world_elements.WorldElement;
@@ -10,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GrassField extends AbstractWorldMap {
+    private final static int MAX_RANGE_MODIFIER = 10;
     private final int grassCount;
     private final Map<Vector2d, Grass> grasses = new HashMap<>();
 
@@ -19,11 +19,15 @@ public class GrassField extends AbstractWorldMap {
     }
 
     private void generateGrass(){
-        int sqrt10N = (int) Math.sqrt(10 * grassCount);
-        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(sqrt10N, sqrt10N, grassCount);
+        int maxRange = calcMaxRange();
+        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(maxRange, grassCount);
         for(Vector2d grassPosition : randomPositionGenerator) {
-            grasses.put(grassPosition, new Grass(grassPosition));
+            place(new Grass(grassPosition));
         }
+    }
+
+    private int calcMaxRange(){
+        return (int) Math.sqrt(MAX_RANGE_MODIFIER * grassCount);
     }
 
     private void calcExtremes(){
@@ -44,8 +48,7 @@ public class GrassField extends AbstractWorldMap {
     @Override
     public boolean place(WorldElement obj){
         if(super.place(obj)) return true;
-        if(obj.getClass().getSimpleName().equals("Grass")){
-            Grass grass = (Grass) obj;
+        if(obj instanceof Grass grass){
             Vector2d newPosition = grass.getPosition();
             if(!this.hasGrass(newPosition)){
                 grasses.put(newPosition, grass);
@@ -56,10 +59,7 @@ public class GrassField extends AbstractWorldMap {
     }
 
     private boolean hasGrass(Vector2d position){
-        for(Vector2d key : grasses.keySet()){
-            if(key.equals(position)) return true;
-        }
-        return false;
+        return grasses.containsKey(position);
     }
 
     @Override

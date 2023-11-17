@@ -32,7 +32,7 @@ class RectangularMapTest {
 
     @Test
     void canMoveToTest(){
-        Animal testAnimal = new Animal(4, 4);
+        Animal testAnimal = new Animal(new Vector2d(4, 4));
         RectangularMap map = new RectangularMap(4,4);
         map.place(testAnimal);
         assertFalse(map.canMoveTo(new Vector2d(5,5)));
