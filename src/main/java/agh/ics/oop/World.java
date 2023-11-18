@@ -12,6 +12,7 @@ public class World {
     public static void main(String[] args){
             List<MoveDirection> directions = OptionsParser.parse(args);
             List<Vector2d> positions = List.of(new Vector2d(2,2),new Vector2d(2,3));
+            map.addListener(new ConsoleMapDisplay());
         try{
             Simulation simulation = new Simulation(directions, positions, map);
             simulation.run();

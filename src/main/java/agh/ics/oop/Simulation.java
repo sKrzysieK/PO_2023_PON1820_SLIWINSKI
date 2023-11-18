@@ -47,7 +47,6 @@ public class Simulation {
             int animalId = index % animals.size();
             Animal currentAnimal = animals.get(animalId);
             map.move(currentAnimal, direction);
-            System.out.println(map);
             index++;
         }
     }
