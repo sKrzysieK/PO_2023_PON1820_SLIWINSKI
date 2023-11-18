@@ -74,6 +74,4 @@ public class GrassField extends AbstractWorldMap {
         elements.putAll(super.getElements());
         return elements;
     }
-
-
 }

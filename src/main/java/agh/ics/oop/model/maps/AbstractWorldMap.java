@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
+    protected List<MapChangeListener> listeners = new ArrayList<>();
     protected final Map<Vector2d, Animal> animals = new HashMap<>();
     protected Boundary mapBoundary;
-    protected List<MapChangeListener> listeners = new ArrayList<>();
 
     @Override
     public void place(WorldElement obj) throws PositionAlreadyOccupiedException{
@@ -24,7 +24,7 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
             Vector2d newPosition = obj.getPosition();
             if (!this.canMoveTo(newPosition)) throw new PositionAlreadyOccupiedException(newPosition);
             animals.put(newPosition, animal);
-            mapChanged("Placed animal on position " + newPosition);
+            mapChanged(createAnimalPlaceMessage(newPosition));
         }
     }
 
@@ -36,7 +36,41 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
         Vector2d endPosition = animal.getPosition();
         animals.remove(startPosition);
         animals.put(endPosition, animal);
-        mapChanged("Start pos: " + startPosition + ", end pos: " + endPosition + ", orientation: " + animal.getOrientation());
+        mapChanged(createAnimalMoveMessage(startPosition, endPosition, animal));
+    }
+
+    public void mapChanged(String message){
+        for(MapChangeListener listener : listeners){
+            listener.mapChanged(this, message);
+        }
+    }
+
+    @Override
+    public String toString(){
+        MapVisualizer visualizer = new MapVisualizer(this);
+        mapBoundary = getCurrentBounds();
+        return visualizer.draw(mapBoundary.lowerLeft(), mapBoundary.upperRight());
+    }
+
+    private String createAnimalMoveMessage(Vector2d start, Vector2d end, Animal animal){
+        return "Start pos: " + start + ", end pos: " + end + ", orientation: " + animal.getOrientation();
+    }
+
+    private String createAnimalPlaceMessage(Vector2d position){
+        return "Placed animal on position " + position;
+    }
+
+    @Override
+    public Map<Vector2d, WorldElement> getElements(){
+        return new HashMap<>(animals);
+    }
+
+    public void addListener(MapChangeListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(MapChangeListener listener){
+        listeners.remove(listener);
     }
 
     @Override
@@ -52,32 +86,6 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
     @Override
     public WorldElement objectAt(Vector2d position){
         return animals.get(position);
-    }
-
-    @Override
-    public String toString(){
-        MapVisualizer visualizer = new MapVisualizer(this);
-        mapBoundary = getCurrentBounds();
-        return visualizer.draw(mapBoundary.lowerLeft(), mapBoundary.upperRight());
-    }
-
-    @Override
-    public Map<Vector2d, WorldElement> getElements(){
-        return new HashMap<>(animals);
-    }
-
-    public void mapChanged(String message){
-        for(MapChangeListener listener : listeners){
-            listener.mapChanged(this, message);
-        }
-    }
-
-    public void addListener(MapChangeListener listener) {
-        listeners.add(listener);
-    }
-
-    public void removeListener(MapChangeListener listener){
-        listeners.remove(listener);
     }
 
 }
