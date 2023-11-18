@@ -7,12 +7,16 @@ import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 import agh.ics.oop.model.world_elements.Animal;
 import agh.ics.oop.model.world_elements.WorldElement;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
     protected final Map<Vector2d, Animal> animals = new HashMap<>();
     protected Boundary mapBoundary;
+    protected List<MapChangeListener> listeners = new ArrayList<>();
 
     @Override
     public void place(WorldElement obj) throws PositionAlreadyOccupiedException{
@@ -20,6 +24,7 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
             Vector2d newPosition = obj.getPosition();
             if (!this.canMoveTo(newPosition)) throw new PositionAlreadyOccupiedException(newPosition);
             animals.put(newPosition, animal);
+            mapChanged("Placed animal on position " + newPosition);
         }
     }
 
@@ -29,9 +34,9 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
         Vector2d startPosition = animal.getPosition();
         animal.move(direction, this);
         Vector2d endPosition = animal.getPosition();
-        System.out.println("Start pos: " + startPosition + ", end pos: " + endPosition + ", orientation: " + animal.getOrientation());
         animals.remove(startPosition);
         animals.put(endPosition, animal);
+        mapChanged("Start pos: " + startPosition + ", end pos: " + endPosition + ", orientation: " + animal.getOrientation());
     }
 
     @Override
@@ -59,6 +64,20 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
     @Override
     public Map<Vector2d, WorldElement> getElements(){
         return new HashMap<>(animals);
+    }
+
+    public void mapChanged(String message){
+        for(MapChangeListener listener : listeners){
+            listener.mapChanged(this, message);
+        }
+    }
+
+    public void addListener(MapChangeListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(MapChangeListener listener){
+        listeners.remove(listener);
     }
 
 }
