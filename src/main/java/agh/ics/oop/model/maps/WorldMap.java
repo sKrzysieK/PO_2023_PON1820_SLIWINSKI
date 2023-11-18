@@ -1,5 +1,6 @@
 package agh.ics.oop.model.maps;
 
+import agh.ics.oop.model.Boundary;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.MoveValidator;
 import agh.ics.oop.model.Vector2d;
@@ -50,4 +51,7 @@ public interface WorldMap<T extends WorldElement, P> extends MoveValidator<P> {
     T objectAt(P position);
 
     Map<P, T> getElements();
+
+    Boundary getCurrentBounds();
+
 }

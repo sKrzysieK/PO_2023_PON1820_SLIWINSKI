@@ -1,5 +1,6 @@
 package agh.ics.oop.model.maps;
 
+import agh.ics.oop.model.Boundary;
 import agh.ics.oop.model.MapVisualizer;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
@@ -11,8 +12,7 @@ import java.util.Map;
 
 abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
     protected final Map<Vector2d, Animal> animals = new HashMap<>();
-    protected Vector2d mapLowerLeft = new Vector2d(0,0);
-    protected Vector2d mapUpperRight = new Vector2d(0, 0);
+    protected Boundary mapBoundary;
 
     @Override
     public void place(WorldElement obj) throws PositionAlreadyOccupiedException{
@@ -21,7 +21,6 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
             if (!this.canMoveTo(newPosition)) throw new PositionAlreadyOccupiedException(newPosition);
             animals.put(newPosition, animal);
         }
-
     }
 
     @Override
@@ -53,7 +52,8 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
     @Override
     public String toString(){
         MapVisualizer visualizer = new MapVisualizer(this);
-        return visualizer.draw(mapLowerLeft, mapUpperRight);
+        mapBoundary = getCurrentBounds();
+        return visualizer.draw(mapBoundary.lowerLeft(), mapBoundary.upperRight());
     }
 
     @Override

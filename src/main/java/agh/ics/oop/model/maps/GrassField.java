@@ -1,6 +1,7 @@
 package agh.ics.oop.model.maps;
 
 import agh.ics.oop.RandomPositionGenerator;
+import agh.ics.oop.model.Boundary;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 import agh.ics.oop.model.world_elements.Grass;
@@ -37,13 +38,17 @@ public class GrassField extends AbstractWorldMap {
         return (int) Math.sqrt(MAX_RANGE_MODIFIER * grassCount);
     }
 
-    private void calcExtremes(){
+    @Override
+    public Boundary getCurrentBounds(){
         HashSet<Vector2d> keySet = new HashSet<>(animals.keySet());
         keySet.addAll(grasses.keySet());
+        Vector2d currLowerLeft = new Vector2d(0,0);
+        Vector2d currUpperRight = new Vector2d(0,0);
         for(Vector2d key : keySet){
-            mapUpperRight = key.upperRight(mapUpperRight);
-            mapLowerLeft = key.lowerLeft(mapLowerLeft);
+            currLowerLeft = key.lowerLeft(currLowerLeft);
+            currUpperRight = key.upperRight(currUpperRight);
         }
+        return new Boundary(currLowerLeft, currUpperRight);
     }
 
     @Override
@@ -53,10 +58,6 @@ public class GrassField extends AbstractWorldMap {
             Vector2d newPosition = grass.getPosition();
             grasses.put(newPosition, grass);
         }
-    }
-
-    private boolean hasGrass(Vector2d position){
-        return grasses.containsKey(position);
     }
 
     @Override
@@ -72,12 +73,6 @@ public class GrassField extends AbstractWorldMap {
         elements.putAll(grasses);
         elements.putAll(super.getElements());
         return elements;
-    }
-
-    @Override
-    public String toString(){
-        this.calcExtremes();
-        return super.toString();
     }
 
 
