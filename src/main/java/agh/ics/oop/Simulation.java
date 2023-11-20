@@ -30,7 +30,7 @@ public class Simulation {
 
     private void addAnimalToSimulation(Animal animal, Vector2d position){
         try{
-            if(!map.canMoveTo(position) && !map.isOccupied(position)) throw new PositionOutOfBoundariesException(position);
+            if(!map.canMoveTo(position)) throw new PositionOutOfBoundariesException(position);
             map.place(animal);
             animals.add(animal);
         }catch( PositionOutOfBoundariesException e){

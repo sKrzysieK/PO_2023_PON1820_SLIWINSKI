@@ -16,7 +16,7 @@ import java.util.Map;
 abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
     protected List<MapChangeListener> listeners = new ArrayList<>();
     protected final Map<Vector2d, Animal> animals = new HashMap<>();
-    protected Boundary mapBoundary;
+
 
     @Override
     public void place(WorldElement obj) throws PositionAlreadyOccupiedException{
@@ -29,8 +29,7 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
     }
 
     @Override
-    public void move(WorldElement obj, MoveDirection direction){
-        if(!(obj instanceof Animal animal)) return;
+    public void move(Animal animal, MoveDirection direction){
         Vector2d startPosition = animal.getPosition();
         animal.move(direction, this);
         Vector2d endPosition = animal.getPosition();
@@ -48,7 +47,7 @@ abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
     @Override
     public String toString(){
         MapVisualizer visualizer = new MapVisualizer(this);
-        mapBoundary = getCurrentBounds();
+        Boundary mapBoundary = getCurrentBounds();
         return visualizer.draw(mapBoundary.lowerLeft(), mapBoundary.upperRight());
     }
 

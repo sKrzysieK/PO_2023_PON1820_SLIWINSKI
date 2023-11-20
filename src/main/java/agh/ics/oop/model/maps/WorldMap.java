@@ -5,6 +5,7 @@ import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.MoveValidator;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
+import agh.ics.oop.model.world_elements.Animal;
 import agh.ics.oop.model.world_elements.WorldElement;
 
 import java.util.Map;
@@ -30,7 +31,7 @@ public interface WorldMap<T extends WorldElement, P> extends MoveValidator<P> {
      * Moves an object (if it is present on the map) according to specified direction.
      * If the move is not possible, this method has no effect.
      */
-    void move(T obj, MoveDirection direction);
+    void move(Animal animal, MoveDirection direction);
 
     /**
      * Return true if given position on the map is occupied. Should not be
