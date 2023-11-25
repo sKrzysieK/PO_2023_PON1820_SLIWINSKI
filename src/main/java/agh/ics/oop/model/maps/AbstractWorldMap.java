@@ -8,15 +8,18 @@ import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 import agh.ics.oop.model.world_elements.Animal;
 import agh.ics.oop.model.world_elements.WorldElement;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 abstract class AbstractWorldMap implements WorldMap<WorldElement, Vector2d> {
     protected List<MapChangeListener> listeners = new ArrayList<>();
     protected final Map<Vector2d, Animal> animals = new HashMap<>();
 
+    protected final UUID id = UUID.randomUUID();
+
+    @Override
+    public UUID getId() {
+        return id;
+    }
 
     @Override
     public void place(WorldElement obj) throws PositionAlreadyOccupiedException{
