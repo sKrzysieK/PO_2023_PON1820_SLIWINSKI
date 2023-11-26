@@ -1,10 +1,10 @@
 package agh.ics.oop.model;
 
 public enum MapDirection {
-    NORTH("Północ"),
-    SOUTH("Południe"),
-    WEST("Zachód"),
-    EAST("Wschód");
+    NORTH("NORTH"),
+    SOUTH("SOUTH"),
+    WEST("WEST"),
+    EAST("EAST");
 
     private final String str;
 

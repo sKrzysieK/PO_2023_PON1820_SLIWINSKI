@@ -1,5 +1,10 @@
-package agh.ics.oop.model;
+package agh.ics.oop.model.world_elements;
 
+import agh.ics.oop.World;
+import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.maps.RectangularMap;
+import agh.ics.oop.model.world_elements.Animal;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +25,8 @@ class AnimalTest {
 
     @Test
     void testMoveForward(){
-        animal.move(MoveDirection.FORWARD);
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
+        animal.move(MoveDirection.FORWARD, map);
         Vector2d nextPosition = new Vector2d(startPosition.getX(), startPosition.getY() + 1);
         assertEquals(animal.getPosition(), nextPosition);
         assertTrue(animal.isAt(nextPosition));
@@ -28,7 +34,8 @@ class AnimalTest {
 
     @Test
     void testMoveRight(){
-        animal.move(MoveDirection.RIGHT);
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
+        animal.move(MoveDirection.RIGHT, map);
         Vector2d nextPosition = new Vector2d(startPosition.getX(), startPosition.getY());
         assertEquals(animal.getPosition(), nextPosition);
         assertTrue(animal.isAt(nextPosition));
@@ -36,7 +43,8 @@ class AnimalTest {
 
     @Test
     void testMoveLeft(){
-        animal.move(MoveDirection.LEFT);
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
+        animal.move(MoveDirection.LEFT, map);
         Vector2d nextPosition = new Vector2d(startPosition.getX(), startPosition.getY());
         assertEquals(animal.getPosition(), nextPosition);
         assertTrue(animal.isAt(nextPosition));
@@ -44,7 +52,8 @@ class AnimalTest {
 
     @Test
     void testMoveBackward(){
-        animal.move(MoveDirection.BACKWARD);
+        RectangularMap map = new RectangularMap(World.MAP_SIZE, World.MAP_SIZE);
+        animal.move(MoveDirection.BACKWARD, map);
         Vector2d nextPosition = new Vector2d(startPosition.getX(), startPosition.getY() - 1);
         assertEquals(animal.getPosition(), nextPosition);
         assertTrue(animal.isAt(nextPosition));
