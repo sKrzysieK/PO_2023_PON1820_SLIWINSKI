@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnimalTest {
     private final Vector2d startPosition = new Vector2d(2,2);
-    private final Animal animal = new Animal(startPosition.getX(), startPosition.getY());
+    private final Animal animal = new Animal(startPosition);
 
     @Test
     void testIsAtStart(){
