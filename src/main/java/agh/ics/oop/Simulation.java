@@ -44,6 +44,7 @@ public class Simulation {
         if(animals.isEmpty()) return;
         int index = 0;
         for(MoveDirection direction : directions){
+
             int animalId = index % animals.size();
             Animal currentAnimal = animals.get(animalId);
             map.move(currentAnimal, direction);
