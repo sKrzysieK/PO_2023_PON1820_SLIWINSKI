@@ -4,9 +4,9 @@ import javafx.application.Application;
 
 public class WorldGUI {
     public static void main(String[] args){
-        try{
+        try {
             Application.launch(SimulationApp.class, args);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

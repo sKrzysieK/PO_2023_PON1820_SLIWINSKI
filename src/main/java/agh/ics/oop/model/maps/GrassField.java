@@ -42,7 +42,7 @@ public class GrassField extends AbstractWorldMap {
     public Boundary getCurrentBounds(){
         HashSet<Vector2d> keySet = new HashSet<>(animals.keySet());
         keySet.addAll(grasses.keySet());
-        Vector2d currLowerLeft = new Vector2d(0,0);
+        Vector2d currLowerLeft = new Vector2d(10,10);
         Vector2d currUpperRight = new Vector2d(0,0);
         for(Vector2d key : keySet){
             currLowerLeft = key.lowerLeft(currLowerLeft);

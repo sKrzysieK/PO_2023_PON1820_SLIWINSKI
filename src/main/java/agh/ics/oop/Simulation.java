@@ -10,7 +10,7 @@ import agh.ics.oop.model.world_elements.WorldElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Simulation {
+public class Simulation{
     private final List<Animal> animals = new ArrayList<>();
     private final List<MoveDirection> directions;
     private final WorldMap<WorldElement, Vector2d> map;
@@ -44,11 +44,15 @@ public class Simulation {
         if(animals.isEmpty()) return;
         int index = 0;
         for(MoveDirection direction : directions){
-
-            int animalId = index % animals.size();
-            Animal currentAnimal = animals.get(animalId);
-            map.move(currentAnimal, direction);
-            index++;
+            try{
+                Thread.sleep(500);
+                int animalId = index % animals.size();
+                Animal currentAnimal = animals.get(animalId);
+                map.move(currentAnimal, direction);
+                index++;
+            } catch (InterruptedException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 

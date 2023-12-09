@@ -14,35 +14,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimulationApp extends Application {
-    public void start(Stage primaryStage){
-        try{
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
-            BorderPane viewRoot = loader.load();
-            SimulationPresenter presenter = loader.getController();
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
 
-            List<MoveDirection> directions = OptionsParser.parse(getParameters().getRaw().toArray(new String[0]));
-            List<Vector2d> positions = List.of(new Vector2d(2,2));
-            List<Simulation> simulations = new ArrayList<>();
-            for(int i = 0; i< 1;i++){
-                RectangularMap rectMap = new RectangularMap(4, 4);
-                rectMap.addListener(new ConsoleMapDisplay());
-                rectMap.addListener(presenter);
-                presenter.setWorldMap(rectMap);
-                simulations.add(new Simulation(directions, positions, rectMap));
-            }
-            SimulationEngine simulationEngine = new SimulationEngine(simulations);
-            simulationEngine.runAsync();
-            simulationEngine.awaitSimulationsEnd();
-            System.out.println("System zakończył działanie.");
+        BorderPane viewRoot = loader.load();
 
+        SimulationPresenter presenter = loader.getController();
 
+        configureStage(primaryStage, viewRoot);
 
-            configureStage(primaryStage, viewRoot);
-            primaryStage.show();
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
+        primaryStage.show();
+
+        System.out.println("System zakończył działanie.");
+
     }
     private void configureStage(Stage primaryStage, BorderPane viewRoot) {
         var scene = new Scene(viewRoot);
