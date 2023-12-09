@@ -68,28 +68,41 @@ public class SimulationPresenter implements MapChangeListener {
         simulationEngine.runAsync();
     }
     private void drawGrid(){
-        int width = worldMap.getCurrentBounds().upperRight().getX() - worldMap.getCurrentBounds().lowerLeft().getX() + 1;
-        int height = worldMap.getCurrentBounds().upperRight().getY() - worldMap.getCurrentBounds().lowerLeft().getY() + 1;
 
         Vector2d upperRight = worldMap.getCurrentBounds().upperRight();
         Vector2d lowerLeft = worldMap.getCurrentBounds().lowerLeft();
 
-        for (int i = lowerLeft.getX(); i <= upperRight.getX(); i++) {
+        for (int i = lowerLeft.getX(); i <= upperRight.getX() + 1; i++) {
             mapGrid.getColumnConstraints().add(new ColumnConstraints(CELL_WIDTH));
         }
-        for (int i = lowerLeft.getY(); i <= upperRight.getY(); i++) {
+        for (int i = lowerLeft.getY(); i <= upperRight.getY() + 1; i++) {
             mapGrid.getRowConstraints().add(new RowConstraints(CELL_HEIGHT));
         }
 
+        for(int i = lowerLeft.getY(); i <= upperRight.getY() + 1;i++){
+            Label label;
+            if(i == upperRight.getY() + 1){
+                label = new Label("y / x");
+            } else{
+                label = new Label("" + i);
+            }
+            GridPane.setHalignment(label, HPos.CENTER);
+            mapGrid.add(label, 0, upperRight.getY() - i + 1);
+        }
 
 
         for (int i = lowerLeft.getX(); i <= upperRight.getX(); i++) {
-            for (int j = upperRight.getY(); j >= lowerLeft.getY(); j--) {
+            for (int j = upperRight.getY() + 1; j >= lowerLeft.getY(); j--) {
+                if(j == upperRight.getY() + 1){
+                    Label label = new Label("" + i);
+                    GridPane.setHalignment(label, HPos.CENTER);
+                    mapGrid.add(label, i - lowerLeft.getX() + 1, 0);
+                }
                 WorldElement objAtPos = worldMap.objectAt(new Vector2d(i, j));
                 if(objAtPos!=null) {
                     Label label = new Label(objAtPos.toString());
                     GridPane.setHalignment(label, HPos.CENTER);
-                    mapGrid.add(label, i - lowerLeft.getX(), upperRight.getY() - j);
+                    mapGrid.add(label, i - lowerLeft.getX() + 1, upperRight.getY() - j + 1);
                 }
             }
         }
