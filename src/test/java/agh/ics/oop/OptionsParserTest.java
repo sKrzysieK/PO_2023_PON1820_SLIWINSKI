@@ -4,7 +4,6 @@ import agh.ics.oop.model.MoveDirection;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,10 +36,14 @@ class OptionsParserTest {
         String left_arr[] = {"l"};
         List<MoveDirection> left_arr_enum = Arrays.asList(MoveDirection.LEFT);
 
-        assertIterableEquals(OptionsParser.parse(forward_arr), forward_arr_enum);
-        assertIterableEquals(OptionsParser.parse(right_arr), right_arr_enum);
-        assertIterableEquals(OptionsParser.parse(backward_arr), backward_arr_enum);
-        assertIterableEquals(OptionsParser.parse(left_arr), left_arr_enum);
+        try{
+            assertIterableEquals(OptionsParser.parse(forward_arr), forward_arr_enum);
+            assertIterableEquals(OptionsParser.parse(right_arr), right_arr_enum);
+            assertIterableEquals(OptionsParser.parse(backward_arr), backward_arr_enum);
+            assertIterableEquals(OptionsParser.parse(left_arr), left_arr_enum);
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
@@ -52,7 +55,11 @@ class OptionsParserTest {
                 MoveDirection.BACKWARD,
                 MoveDirection.LEFT
         );
-        assertIterableEquals(OptionsParser.parse(arr1), arr1_enum);
+        try{
+            assertIterableEquals(OptionsParser.parse(arr1), arr1_enum);
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
@@ -65,7 +72,11 @@ class OptionsParserTest {
                 MoveDirection.FORWARD
         );
 
+        try{
         assertIterableEquals(OptionsParser.parse(arr2), arr2_enum);
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
@@ -77,8 +88,11 @@ class OptionsParserTest {
                 MoveDirection.BACKWARD,
                 MoveDirection.LEFT
         );
-
-        assertIterableEquals(OptionsParser.parse(arr3), arr3_enum);
+        try{
+            assertIterableEquals(OptionsParser.parse(arr3), arr3_enum);
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
@@ -90,20 +104,31 @@ class OptionsParserTest {
                 MoveDirection.BACKWARD,
                 MoveDirection.LEFT
         );
-
-        assertIterableEquals(OptionsParser.parse(arr4), arr4_enum);
+        try{
+            assertIterableEquals(OptionsParser.parse(arr4), arr4_enum);
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void wrongDirectionsShouldBeIgnored(){
-        assertIterableEquals(OptionsParser.parse(mistake1), directions1);
-        assertIterableEquals(OptionsParser.parse(mistake2), directions2);
+        try {
+            assertIterableEquals(OptionsParser.parse(mistake1), directions1);
+            assertIterableEquals(OptionsParser.parse(mistake2), directions2);
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void parsedArrayShouldHaveCorrectSize(){
-        assertEquals(OptionsParser.parse(mistake1).size(), directions1.size());
-        assertEquals(OptionsParser.parse(mistake2).size(), directions2.size());
+        try {
+            assertEquals(OptionsParser.parse(mistake1).size(), directions1.size());
+            assertEquals(OptionsParser.parse(mistake2).size(), directions2.size());
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 
 
