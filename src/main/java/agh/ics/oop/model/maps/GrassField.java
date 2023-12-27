@@ -1,12 +1,16 @@
 package agh.ics.oop.model.maps;
 
 import agh.ics.oop.RandomPositionGenerator;
+import agh.ics.oop.model.Boundary;
 import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.exceptions.PositionAlreadyOccupiedException;
 import agh.ics.oop.model.world_elements.Grass;
 import agh.ics.oop.model.world_elements.WorldElement;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class GrassField extends AbstractWorldMap {
     private final static int MAX_RANGE_MODIFIER = 10;
@@ -22,7 +26,11 @@ public class GrassField extends AbstractWorldMap {
         int maxRange = calcMaxRange();
         RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(maxRange, grassCount);
         for(Vector2d grassPosition : randomPositionGenerator) {
-            place(new Grass(grassPosition));
+            try{
+                place(new Grass(grassPosition));
+            } catch (PositionAlreadyOccupiedException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -30,36 +38,26 @@ public class GrassField extends AbstractWorldMap {
         return (int) Math.sqrt(MAX_RANGE_MODIFIER * grassCount);
     }
 
-    private void calcExtremes(){
-        Vector2d currUpperRight = new Vector2d(0, 0);
-        Vector2d currLowerLeft = new Vector2d(0, 0);
-        for(Vector2d key : animals.keySet()){
-            currUpperRight = key.upperRight(currUpperRight);
+    @Override
+    public Boundary getCurrentBounds(){
+        HashSet<Vector2d> keySet = new HashSet<>(animals.keySet());
+        keySet.addAll(grasses.keySet());
+        Vector2d currLowerLeft = new Vector2d(0,0);
+        Vector2d currUpperRight = new Vector2d(0,0);
+        for(Vector2d key : keySet){
             currLowerLeft = key.lowerLeft(currLowerLeft);
-        }
-        for(Vector2d key : grasses.keySet()){
             currUpperRight = key.upperRight(currUpperRight);
-            currLowerLeft = key.lowerLeft(currLowerLeft);
         }
-        mapLowerLeft = currLowerLeft;
-        mapUpperRight = currUpperRight;
+        return new Boundary(currLowerLeft, currUpperRight);
     }
 
     @Override
-    public boolean place(WorldElement obj){
-        if(super.place(obj)) return true;
+    public void place(WorldElement obj) throws PositionAlreadyOccupiedException{
+        super.place(obj);
         if(obj instanceof Grass grass){
             Vector2d newPosition = grass.getPosition();
-            if(!this.hasGrass(newPosition)){
-                grasses.put(newPosition, grass);
-                return true;
-            }
+            grasses.put(newPosition, grass);
         }
-        return false;
-    }
-
-    private boolean hasGrass(Vector2d position){
-        return grasses.containsKey(position);
     }
 
     @Override
@@ -76,12 +74,4 @@ public class GrassField extends AbstractWorldMap {
         elements.putAll(super.getElements());
         return elements;
     }
-
-    @Override
-    public String toString(){
-        this.calcExtremes();
-        return super.toString();
-    }
-
-
 }
