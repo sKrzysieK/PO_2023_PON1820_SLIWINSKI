@@ -9,6 +9,7 @@ import agh.ics.oop.model.world_elements.Animal;
 import agh.ics.oop.model.world_elements.WorldElement;
 
 import java.util.Map;
+import java.util.UUID;
 
 
 /**
@@ -18,6 +19,8 @@ import java.util.Map;
  * @author apohllo, idzik
  */
 public interface WorldMap<T extends WorldElement, P> extends MoveValidator<P> {
+
+    UUID getId();
 
     /**
      * Place an object on the map.
